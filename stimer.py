@@ -9,6 +9,7 @@ config = configparser.ConfigParser()
 config.read("cfg.ini")
 FOCUS = eval(config.get("top", "focus_time"))
 COOLDOWNS = eval(config.get("top", "short_cooldown_time"))
+TICK = config.getboolean("top", "tick")
 
 
 def background(func, args):
@@ -54,8 +55,10 @@ def Timer(countdown):
         hrs.set(add_leading_zero(hour))
         root.update()
         time.sleep(1)
-        countdown -= 1
+        if TICK:
+            _playsound("asset/audio/tick.mp3")
         pbar.step(incre_amount)
+        countdown -= 1
     pbar.destroy()
 
 
@@ -66,9 +69,10 @@ def _playsound(filepath):
 
 def Start(cooldown=True, cooldown_time=COOLDOWNS):
     countdown = int(hrs.get()) * 3600 + int(mins.get()) * 60 + int(secs.get())
+    _playsound("asset/audio/alert-work.mp3")
     Timer(countdown)
     if not STOP:
-        _playsound("asset/alarm.mp3")
+        _playsound("asset/audio/alert-short-break.mp3")
         if cooldown:
             Timer(cooldown_time)
 

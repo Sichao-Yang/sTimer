@@ -8,5 +8,6 @@ Its GUI looks like this:
 
 To install dependency, run `pip install -r requirement`.
 
-You can customize the alarm sound by replacing the default mp3 and trim time of the alarm:
-`ffmpeg -i battleship-alarm.wav -t 2 alarm.mp3`
+Notice: The default audio comes from [pomotroid](https://github.com/Splode/pomotroid/tree/master/static/audio).
+You can also customize the alarm sound by replacing the default mp3 and trim time of the alarm:
+`ffmpeg -i battleship-alarm.wav -t 2 alert.mp3`
