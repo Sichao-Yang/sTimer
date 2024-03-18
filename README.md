@@ -1,6 +1,10 @@
 # sTimer
 
-sTimer is a timer pomotroid with minimum feature. It takes config from `cfg.ini` file and run with command `python stimer.py`.
+sTimer is a timing pomotroid with minimum features. It takes config from `cfg.ini` file and run with command `python stimer.py`.
+
+Its GUI looks like this:
+
+![img](asset/demo.png)
 
 To install dependency, run `pip install -r requirement`.
 

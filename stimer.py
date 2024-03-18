@@ -68,7 +68,7 @@ def Start(cooldown=True, cooldown_time=COOLDOWNS):
     countdown = int(hrs.get()) * 3600 + int(mins.get()) * 60 + int(secs.get())
     Timer(countdown)
     if not STOP:
-        _playsound("alarm.mp3")
+        _playsound("asset/alarm.mp3")
         if cooldown:
             Timer(cooldown_time)
 
