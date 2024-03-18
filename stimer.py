@@ -80,7 +80,7 @@ def Stop():
 
 root = Tk()
 root.title("sTimer")
-root.geometry("400x160")
+root.geometry("400x160+0+0")
 root.config(bg="#000")
 root.resizable(False, False)
 root.wm_attributes("-topmost", 1)
