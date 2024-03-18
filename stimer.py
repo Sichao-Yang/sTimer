@@ -10,6 +10,15 @@ config.read("cfg.ini")
 FOCUS = eval(config.get("top", "focus_time"))
 COOLDOWNS = eval(config.get("top", "short_cooldown_time"))
 TICK = config.getboolean("top", "tick")
+FONT_TYPE = "Arial"
+
+
+def get_available_fonts():
+    from tkinter import font
+
+    root = Tk()
+    root.title("Font Families")
+    print(list(font.families()))
 
 
 def background(func, args):
@@ -92,25 +101,28 @@ root.wm_attributes("-topmost", 1)
 # timer
 timer_y = 20
 unit_y = timer_y + 40
+Font_tuple = ("Arial Black", 40, "")
 hrs = StringVar()
 Entry(
-    root, textvariable=hrs, width=2, font="arial 50", bg="#001", fg="#fff", bd=0
+    root, textvariable=hrs, width=2, font=Font_tuple, bg="#001", fg="#fff", bd=0
 ).place(x=30, y=timer_y)
 hrs.set(add_leading_zero(FOCUS // (60 * 60)))
 mins = StringVar()
 Entry(
-    root, textvariable=mins, width=2, font="arial 50", bg="#001", fg="#fff", bd=0
+    root, textvariable=mins, width=2, font=Font_tuple, bg="#001", fg="#fff", bd=0
 ).place(x=150, y=timer_y)
 mins.set(add_leading_zero(FOCUS // (60)))
 secs = StringVar()
 Entry(
-    root, textvariable=secs, width=2, font="arial 50", bg="#001", fg="#fff", bd=0
+    root, textvariable=secs, width=2, font=Font_tuple, bg="#001", fg="#fff", bd=0
 ).place(x=270, y=timer_y)
 secs.set(add_leading_zero(FOCUS % 60))
-Label(root, text="hour", font="arial 15", bg="#000", fg="#fff").place(x=105, y=unit_y)
-Label(root, text="min", font="arial 15", bg="#000", fg="#fff").place(x=225, y=unit_y)
-Label(root, text="sec", font="arial 15", bg="#000", fg="#fff").place(x=345, y=unit_y)
 
+Font_tuple = ("Arial", 15, "")
+Label(root, text="hr", font=Font_tuple, bg="#000", fg="#fff").place(x=105, y=unit_y)
+Label(root, text="min", font=Font_tuple, bg="#000", fg="#fff").place(x=225, y=unit_y)
+Label(root, text="sec", font=Font_tuple, bg="#000", fg="#fff").place(x=345, y=unit_y)
+Font_tuple = ("Arial", 10, "bold")
 buttonStart = Button(
     root,
     text="Start",
@@ -119,7 +131,7 @@ buttonStart = Button(
     fg="#fff",
     width=10,
     height=2,
-    font="arial 10 bold",
+    font=Font_tuple,
     command=Start,
 )
 buttonStop = Button(
@@ -130,7 +142,7 @@ buttonStop = Button(
     fg="#fff",
     width=10,
     height=2,
-    font="arial 10 bold",
+    font=Font_tuple,
     command=Stop,
 )
 buttonFocus = Button(
@@ -141,7 +153,7 @@ buttonFocus = Button(
     fg="#fff",
     width=10,
     height=2,
-    font="arial 10 bold",
+    font=Font_tuple,
     command=Reset,
 )
 button_y = timer_y + 80
@@ -149,6 +161,5 @@ xs = [30, 155, 280]
 buttonFocus.place(x=xs[0], y=button_y)
 buttonStart.place(x=xs[1], y=button_y)
 buttonStop.place(x=xs[2], y=button_y)
-
 
 root.mainloop()
