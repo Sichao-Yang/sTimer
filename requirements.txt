@@ -1,1 +1,2 @@
 playsound==1.2.2
+pyinstaller==6.5.0
