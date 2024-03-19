@@ -155,13 +155,14 @@ class sTimer:
     def Start(self):
         countdown = int(self.hrs.get()) * 3600 + int(self.mins.get()) * 60 + int(self.secs.get())
         _playsound(self.sound_path_work)
-        self.Timer(countdown)
+        self.Timer(countdown, self.tick)
         if not self.stop:
             _playsound(self.sound_path_short_cooldown)
             if self.cooldown:
-                self.Timer(self.short_cooldown)
+                # dont play tick sound while cooldown
+                self.Timer(self.short_cooldown, False)
 
-    def Timer(self, countdown):
+    def Timer(self, countdown, tick):
         self.stop = False
         if countdown == 0:
             return
@@ -177,7 +178,7 @@ class sTimer:
             self.hrs.set(add_leading_zero(hour))
             self.root.update()
             time.sleep(1)
-            if self.tick:
+            if tick:
                 _playsound(self.sound_path_tick)
             pbar.step(incre_amount)
             countdown -= 1
