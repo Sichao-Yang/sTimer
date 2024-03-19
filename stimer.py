@@ -56,6 +56,7 @@ class sTimer:
 
         height = 160
         width = 400
+        bottom_y_margin = 70
         # Get the current screen width and height
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
@@ -65,8 +66,8 @@ class sTimer:
         position = {
             "topleft": (0, 0),
             "topright": (screen_width - width, 0),
-            "bottomleft": (0, screen_height - height - 40),
-            "bottomright": (screen_width - width, screen_height - height - 40),
+            "bottomleft": (0, screen_height - height - bottom_y_margin),
+            "bottomright": (screen_width - width, screen_height - height - bottom_y_margin),
         }
         x, y = position["bottomright"]
         self.root.geometry(f"{width}x{height}+{x}+{y}")
@@ -167,7 +168,7 @@ class sTimer:
         if countdown == 0:
             return
         pbar = set_pbar()
-        incre_amount = 100 / countdown
+        incr_amount = 100 / countdown
         while countdown >= 0 and not self.stop:
             minute, second = (countdown // 60, countdown % 60)
             hour = 0
@@ -180,7 +181,7 @@ class sTimer:
             time.sleep(1)
             if tick:
                 _playsound(self.sound_path_tick)
-            pbar.step(incre_amount)
+            pbar.step(incr_amount)
             countdown -= 1
         pbar.destroy()
 
