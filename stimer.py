@@ -28,7 +28,7 @@ def set_pbar():
     return pbar
 
 
-def _playsound(filepath):
+def splaysound(filepath):
     # playsound(filepath)
     background(playsound, (filepath,))
 
@@ -84,7 +84,10 @@ class sTimer:
             "topleft": (0, 0),
             "topright": (screen_width - width, 0),
             "bottomleft": (0, screen_height - height - bottom_y_margin),
-            "bottomright": (screen_width - width, screen_height - height - bottom_y_margin),
+            "bottomright": (
+                screen_width - width,
+                screen_height - height - bottom_y_margin,
+            ),
         }
         x, y = position["bottomright"]
         self.root.geometry(f"{width}x{height}+{x}+{y}")
@@ -97,32 +100,62 @@ class sTimer:
         unit_y = timer_y + 40
         Font_tuple = ("Arial Black", 40, "")
         self.hrs = StringVar()
-        Entry(self.root, textvariable=self.hrs, width=2, font=Font_tuple, bg="#001", fg="#fff", bd=0).place(
-            x=30, y=timer_y
-        )
-        self.hrs.set(add_leading_zero(self.focus_time // (60 * 60)))
+        Entry(
+            self.root,
+            textvariable=self.hrs,
+            width=2,
+            font=Font_tuple,
+            bg="#001",
+            fg="#fff",
+            bd=0,
+        ).place(x=30, y=timer_y)
         self.mins = StringVar()
-        Entry(self.root, textvariable=self.mins, width=2, font=Font_tuple, bg="#001", fg="#fff", bd=0).place(
-            x=150, y=timer_y
-        )
-        self.mins.set(add_leading_zero(self.focus_time // (60)))
+        Entry(
+            self.root,
+            textvariable=self.mins,
+            width=2,
+            font=Font_tuple,
+            bg="#001",
+            fg="#fff",
+            bd=0,
+        ).place(x=150, y=timer_y)
         self.secs = StringVar()
-        Entry(self.root, textvariable=self.secs, width=2, font=Font_tuple, bg="#001", fg="#fff", bd=0).place(
-            x=270, y=timer_y
-        )
+        Entry(
+            self.root,
+            textvariable=self.secs,
+            width=2,
+            font=Font_tuple,
+            bg="#001",
+            fg="#fff",
+            bd=0,
+        ).place(x=270, y=timer_y)
+        self.hrs.set(add_leading_zero(self.focus_time // (60 * 60)))
+        self.mins.set(add_leading_zero(self.focus_time // (60)))
         self.secs.set(add_leading_zero(self.focus_time % 60))
 
         # repetition
         self.rep_count = StringVar()
         Entry(
-            self.root, textvariable=self.rep_count, width=3, font=("Arial Black", 10, ""), bg="#001", fg="#fff", bd=0
+            self.root,
+            textvariable=self.rep_count,
+            width=3,
+            font=("Arial Black", 10, ""),
+            bg="#001",
+            fg="#fff",
+            bd=0,
         ).place(x=5, y=timer_y - 10)
         self.rep_count.set(self._format_rep())
         # control button
         Font_tuple = ("Arial", 15, "")
-        Label(self.root, text="hr", font=Font_tuple, bg="#000", fg="#fff").place(x=105, y=unit_y)
-        Label(self.root, text="min", font=Font_tuple, bg="#000", fg="#fff").place(x=225, y=unit_y)
-        Label(self.root, text="sec", font=Font_tuple, bg="#000", fg="#fff").place(x=345, y=unit_y)
+        Label(self.root, text="hr", font=Font_tuple, bg="#000", fg="#fff").place(
+            x=105, y=unit_y
+        )
+        Label(self.root, text="min", font=Font_tuple, bg="#000", fg="#fff").place(
+            x=225, y=unit_y
+        )
+        Label(self.root, text="sec", font=Font_tuple, bg="#000", fg="#fff").place(
+            x=345, y=unit_y
+        )
         Font_tuple = ("Arial", 10, "bold")
         buttonStart = Button(
             self.root,
@@ -197,13 +230,17 @@ class sTimer:
     def Start(self):
         self.start_timer()
         while (self.current_rep < self.total_rep) and self.timer_active:
-            countdown = int(self.hrs.get()) * 3600 + int(self.mins.get()) * 60 + int(self.secs.get())
+            countdown = (
+                int(self.hrs.get()) * 3600
+                + int(self.mins.get()) * 60
+                + int(self.secs.get())
+            )
             if self.loop_state == "focus":
-                _playsound(self.sound_path_work)
+                splaysound(self.sound_path_work)
                 self.Timer(countdown, self.tick)
                 if self.timer_active:
                     self.loop_state = "cooldown"
-                    _playsound(self.sound_path_short_cooldown)
+                    splaysound(self.sound_path_short_cooldown)
                     countdown = self.short_cooldown
             if self.loop_state == "cooldown":
                 if self.cooldown:
@@ -232,7 +269,7 @@ class sTimer:
             self.root.update()
             pbar.step(incr_amount)
             if tick:
-                _playsound(self.sound_path_tick)
+                splaysound(self.sound_path_tick)
             countdown -= 1
             time.sleep(1)
         pbar.destroy()
